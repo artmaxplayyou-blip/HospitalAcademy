@@ -108,3 +108,4 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
         alert('Не удалось отправить отчёт. Проверьте подключение к интернету.');
     }
 });
+
