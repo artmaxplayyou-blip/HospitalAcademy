@@ -48,7 +48,7 @@ function sendToDiscord(data) {
     const announcementLabel = typeLabels[data.announcementType] || 'Не указано';
 
     const payload = {
-        content: '<@&1467619284871151768> <@&1467619346657444041>', // Упоминания ролей в начале
+        content: `<@&1412079127951048805> <@&1412081593727717438>`, // Упоминания ролей в начале
         embeds: [
             {
                 title: '📋 ОТЧЁТ О НАБОРЕ — Hospital Academy',
@@ -108,3 +108,4 @@ function sendToDiscord(data) {
         alert('Ошибка сети. Проверьте подключение.');
     });
 }
+
