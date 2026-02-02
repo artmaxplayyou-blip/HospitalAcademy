@@ -27,6 +27,9 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
             .filter(link => link.trim() !== '')
     };
 
+    // ID роли, которую нужно упомянуть (ЗАМЕНИТЕ НА СВОЙ ID!)
+    const ROLE_ID = `<@&1412079127951048805> <@&1412081593727717438>`, // Упоминания ролей в начале
+
     // Формируем Embed для Discord
     const embed = {
         title: 'Еженедельный отчёт отдела Hospital Academy',
@@ -71,6 +74,12 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
                     ? data.hallPostScreenshots.join('\n')
                     : 'Нет данных',
                 inline: false
+            },
+            // НОВОЕ ПОЛЕ: упоминание роли
+            {
+                name: '\u200B', // Невидимый символ (чтобы поле не сливалось с предыдущим)
+                value: `<@&${ROLE_ID}>`, // Упоминание роли через ID
+                inline: false
             }
         ],
         timestamp: new Date().toISOString(), // Время отправки отчёта
@@ -81,7 +90,7 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
 
     // Отправляем в Discord через вебхук
     try {
-        const response = await fetch('https://discord.com/api/webhooks/1432858037835665639/Q5G6uC6QYZ_wVzMPPliEPAy5BJpcjx0lGTxlupAI8pOVVlYA1oXN2j-zhFlzykpJQQS0', { // Замените на реальный URL вебхука
+        const response = await fetch('https://discord.com/api/webhooks/1432858037835665639/Q5G6uC6QYZ_wVzMPPliEPAy5BJpcjx0lGTxlupAI8pOVVlYA1oXN2j-zhFlzykpJQQS0', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -102,5 +111,3 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
         alert('Не удалось отправить отчёт. Проверьте подключение к интернету.');
     }
 });
-
-
