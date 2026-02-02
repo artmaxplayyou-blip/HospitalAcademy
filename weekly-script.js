@@ -27,13 +27,19 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
             .filter(link => link.trim() !== '')
     };
 
-    // ID роли, которую нужно упомянуть (ЗАМЕНИТЕ НА СВОЙ ID!)
-    const ROLE_ID = `<@&1412079127951048805> <@&1412081593727717438>`, // Упоминания ролей в начале
+    // ID ролей для упоминания (ЗАМЕНИТЕ НА СВОИ!)
+    const ROLE_IDS = [
+        '1412079127951048805', // Пример ID первой роли
+        '1412081593727717438'  // Пример ID второй роли
+    ];
+
+    // Формируем строку упоминаний: <@&ID1> <@&ID2> ...
+    const mentions = ROLE_IDS.map(id => `<@&${id}>`).join(' ');
 
     // Формируем Embed для Discord
     const embed = {
         title: 'Еженедельный отчёт отдела Hospital Academy',
-        color: 0x999999, // Светло‑серая линия слева (HEX-код)
+        color: 0x999999, // Светло‑серая линия слева
         fields: [
             {
                 name: 'Имя и Фамилия | CID',
@@ -74,15 +80,9 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
                     ? data.hallPostScreenshots.join('\n')
                     : 'Нет данных',
                 inline: false
-            },
-            // НОВОЕ ПОЛЕ: упоминание роли
-            {
-                name: '\u200B', // Невидимый символ (чтобы поле не сливалось с предыдущим)
-                value: `<@&${ROLE_ID}>`, // Упоминание роли через ID
-                inline: false
             }
         ],
-        timestamp: new Date().toISOString(), // Время отправки отчёта
+        timestamp: new Date().toISOString(),
         footer: {
             text: 'Hospital Academy | Еженедельный отчёт'
         }
@@ -95,7 +95,10 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ embeds: [embed] })
+            body: JSON.stringify({
+                content: mentions, // Упоминания ролей в начале сообщения
+                embeds: [embed]
+            })
         });
 
         if (response.ok) {
