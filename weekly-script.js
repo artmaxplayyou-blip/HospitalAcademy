@@ -29,6 +29,7 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
 
     // Формируем Embed для Discord
     const embed = {
+        content: `<@&1412079127951048805> <@&1412081593727717438>`, // упоминания ролей
         title: 'Еженедельный отчёт отдела Hospital Academy',
         color: 0x999999, // Светло‑серая линия слева (HEX-код)
         fields: [
@@ -102,3 +103,4 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
         alert('Не удалось отправить отчёт. Проверьте подключение к интернету.');
     }
 });
+
