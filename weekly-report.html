@@ -1,96 +1,110 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Еженедельный отчёт отдела — Hospital Academy</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="report-page">
+document.getElementById('weeklyReportForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-<nav class="navbar">
-    <div class="logo">Hospital Academy</div>
-    <ul class="nav-menu">
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="recruitment-report.html">Отчёт о наборе</a></li>
-        <li><a href="exam-report.html">Отчёт об экзамене</a></li>
-        <!-- Активный пункт -->
-        <li><a href="weekly-report.html" class="active">Еженедельный отчёт HA</a></li>
-    </ul>
-</nav>
+    // Собираем данные формы
+    const data = {
+        fullName: document.getElementById('fullName').value.trim(),
+        cid: document.getElementById('cid').value.trim(),
+        dependencyScreenshots: document.getElementById('dependencyScreenshots').value
+            .trim()
+            .split('\n')
+            .filter(link => link.trim() !== ''),
+        mpGmpScreenshots: document.getElementById('mpGmpScreenshots').value
+            .trim()
+            .split('\n')
+            .filter(link => link.trim() !== ''),
+        armyRecruitmentScreenshots: document.getElementById('armyRecruitmentScreenshots').value
+            .trim()
+            .split('\n')
+            .filter(link => link.trim() !== ''),
+        resuscitationScreenshots: document.getElementById('resuscitationScreenshots').value
+            .trim()
+            .split('\n')
+            .filter(link => link.trim() !== ''),
+        hallPostScreenshots: document.getElementById('hallPostScreenshots').value
+            .trim()
+            .split('\n')
+            .filter(link => link.trim() !== '')
+    };
 
+    // Упоминания ролей ПЕРЕД отчётом
+    const mentions = '<@&1412079127951048805> <@&1412081593727717438>';
 
-    <main class="report-form">
-        <h2>Еженедельный отчёт отдела</h2>
-        <form id="weeklyReportForm">
-            <!-- Имя и Фамилия | CID -->
-            <div class="form-group">
-                <label>Имя и Фамилия | CID</label>
-                <div class="input-group">
-                    <input type="text" id="fullName" placeholder="Имя и Фамилия" required>
-                    <input type="text" id="cid" placeholder="CID" required>
-                </div>
-            </div>
+    // Формируем Embed для Discord
+    const embed = {
+        title: 'Еженедельный отчёт отдела Hospital Academy',
+        color: 0x999999, // Светло‑серая линия слева (HEX-код)
+        fields: [
+            {
+                name: 'Имя и Фамилия | CID',
+                value: `${data.fullName} | ${data.cid}`,
+                inline: false
+            },
+            {
+                name: 'Зависимость (Скриншоты помощи)',
+                value: data.dependencyScreenshots.length > 0
+                    ? data.dependencyScreenshots.join('\n')
+                    : 'Нет данных',
+                inline: false
+            },
+            {
+                name: 'Участие в МП/ГМП (начало и конец)',
+                value: data.mpGmpScreenshots.length > 0
+                    ? data.mpGmpScreenshots.join('\n')
+                    : 'Нет данных',
+                inline: false
+            },
+            {
+                name: 'Участие в наборе Армии (начало и конец)',
+                value: data.armyRecruitmentScreenshots.length > 0
+                    ? data.armyRecruitmentScreenshots.join('\n')
+                    : 'Нет данных',
+                inline: false
+            },
+            {
+                name: 'Реанимация людей/госслужащих',
+                value: data.resuscitationScreenshots.length > 0
+                    ? data.resuscitationScreenshots.join('\n')
+                    : 'Нет данных',
+                inline: false
+            },
+            {
+                name: 'Пост в Холле 1 час+ (скриншоты каждые 20 мин)',
+                value: data.hallPostScreenshots.length > 0
+                    ? data.hallPostScreenshots.join('\n')
+                    : 'Нет данных',
+                inline: false
+            }
+        ],
+        timestamp: new Date().toISOString(), // Время отправки отчёта
+        footer: {
+            text: 'Hospital Academy | Еженедельный отчёт'
+        }
+    };
 
-            <!-- Зависимость (Скриншот помощи) -->
-            <div class="form-group">
-                <label for="dependencyScreenshots">Зависимость (Скриншот момента помощи)</label>
-                <textarea
-                    id="dependencyScreenshots"
-                    placeholder="Вставьте ссылки на скриншоты (каждая ссылка с новой строки)"
-                    required
-                ></textarea>
-                <small class="hint">Пример: https://example.com/screenshot1.png</small>
-            </div>
+    // Отправляем в Discord через вебхук
+    try {
+        const response = await fetch('https://discord.com/api/webhooks/1432858037835665639/Q5G6uC6QYZ_wVzMPPliEPAy5BJpcjx0lGTxlupAI8pOVVlYA1oXN2j-zhFlzykpJQQS0', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: mentions, // Упоминания ролей перед отчётом
+                embeds: [embed]
+            })
+        });
 
-            <!-- Участие в МП/ГМП -->
-            <div class="form-group">
-                <label for="mpGmpScreenshots">Участие в МП/ГМП (Скриншот начала и конца мероприятия)</label>
-                <textarea
-                    id="mpGmpScreenshots"
-                    placeholder="Вставьте ссылки на скриншоты (начало и конец, каждая ссылка с новой строки)"
-                    required
-                ></textarea>
-                <small class="hint">Только мероприятия для гос. структур</small>
-            </div>
-
-            <!-- Участие в наборе Армии -->
-            <div class="form-group">
-                <label for="armyRecruitmentScreenshots">Участие в наборе Армии (Скриншот начала и конца набора)</label>
-                <textarea
-                    id="armyRecruitmentScreenshots"
-                    placeholder="Вставьте ссылки на скриншоты (начало и конец, каждая ссылка с новой строки)"
-                    required
-                ></textarea>
-            </div>
-
-            <!-- Реанимация -->
-            <div class="form-group">
-                <label for="resuscitationScreenshots">Реанимация людей/госслужащих (Скриншот момента реанимации)</label>
-                <textarea
-                    id="resuscitationScreenshots"
-                    placeholder="Вставьте ссылки на скриншоты (каждая ссылка с новой строки)"
-                    required
-                ></textarea>
-            </div>
-
-            <!-- Пост в Холле -->
-            <div class="form-group">
-                <label for="hallPostScreenshots">Пост в Холле 1 час+ (скриншот каждые 20 минут)</label>
-                <textarea
-                    id="hallPostScreenshots"
-                    placeholder="Вставьте ссылки на скриншоты (каждые 2 gef 20 минут, каждая ссылка с новой строки)"
-                    required
-                ></textarea>
-                <small class="hint">Минимум 3 скриншота за час</small>
-            </div>
-
-            <!-- Кнопка отправки -->
-            <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
-        </form>
-    </main>
-
-
-    <script src="weekly-script.js"></script>
-</body>
-</html>
+        if (response.ok) {
+            alert('Отчёт успешно отправлен в Discord!');
+            document.getElementById('weeklyReportForm').reset(); // Очищаем форму
+        } else {
+            const errorText = await response.text();
+            console.error('Ошибка отправки:', errorText);
+            alert('Ошибка отправки отчёта. Проверьте URL вебхука.');
+        }
+    } catch (error) {
+        console.error('Ошибка сети:', error);
+        alert('Не удалось отправить отчёт. Проверьте подключение к интернету.');
+    }
+});
