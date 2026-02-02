@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отчёт об экзамене — Hospital Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="report-page">
+<nav class="navbar">
+    <div class="logo">Hospital Academy</div>
+    <ul class="nav-menu">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="recruitment-report.html">Отчёт о наборе</a></li>
+        <li><a href="exam-report.html" class="active">Отчёт об экзамене</a></li>
+        <!-- Новый пункт меню -->
+        <li><a href="weekly-report.html">Еженедельный отчёт HA</a></li>
+    </ul>
+</nav>
+
+
+<main class="report-form">
+<h2>Отчёт об экзамене</h2>
+<form id="examForm">
+<!-- 1. Кто принимал экзамен -->
+<div class="form-group">
+<label for="examinerName">Кто принимал экзамен?</label>
+<div class="input-group">
+<input type="text" id="examinerName" placeholder="Имя Фамилия" required>
+<input type="text" id="examinerCID" placeholder="CID" required>
+</div>
+</div>
+
+<!-- 2. У кого принимали -->
+<div class="form-group">
+<label for="candidateName">У кого принимали?</label>
+<div class="input-group">
+<input type="text" id="candidateName" placeholder="Имя Фамилия" required>
+<input type="text" id="candidateCID" placeholder="CID" required>
+</div>
+</div>
+
+<!-- 3. Список экзаменов -->
+<div class="form-group">
+<label>Список экзаменов (выберите один или несколько):</label>
+<div class="checkbox-group">
+<label>
+<input type="checkbox" value="Клятва Врача">
+📕 | Клятва Врача
+</label>
+<label>
+<input type="checkbox" value="Устав">
+📔 | Устав
+</label>
+<label>
+<input type="checkbox" value="Медикаменты">
+💊 | Медикаменты
+</label>
+<label>
+<input type="checkbox" value="Тен-коды">
+📗┃Тен-коды
+</label>
+<label>
+<input type="checkbox" value="Транспорт больницы">
+🚑 | Транспорт больницы
+</label>
+<label>
+<input type="checkbox" value="Положение о радиосвязи">
+📘┃Положение об использовании радиосвязи
+</label>
+</div>
+</div>
+
+<!-- 4. Результат: Сдал / Не сдал -->
+<div class="form-group">
+<label>Результат:</label>
+<div class="radio-group">
+<label>
+<input type="radio" name="result" value="Сдал" required>
+Сдал ✅
+</label>
+<label>
+<input type="radio" name="result" value="Не сдал">
+Не сдал ❌
+</label>
+</div>
+</div>
+
+<!-- Кнопка отправки -->
+<button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
+</form>
+</main>
+
+<script src="exam-script.js"></script>
+</body>
+</html>

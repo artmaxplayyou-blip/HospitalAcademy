@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчёт о наборе — Hospital Academy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="report-page">
+<nav class="navbar">
+    <div class="logo">Hospital Academy</div>
+    <ul class="nav-menu">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="recruitment-report.html" class="active">Отчёт о наборе</a></li>
+        <li><a href="exam-report.html">Отчёт об экзамене</a></li>
+        <!-- Новый пункт меню -->
+        <li><a href="weekly-report.html">Еженедельный отчёт HA</a></li>
+    </ul>
+</nav>
+
+
+    <main class="report-form">
+        <h2>Отчёт о наборе</h2>
+        <form id="recruitmentForm">
+            <div class="form-group">
+                <label for="announcementType">Тип объявления</label>
+                <select id="announcementType" required>
+                    <option value="">Выберите тип</option>
+                    <option value="hall">Набор в холле</option>
+                    <option value="electronic">Электронные заявки</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="interviewLeader">Главный по собеседованию</label>
+                <input type="text" id="interviewLeader" required>
+            </div>
+
+            <div class="form-group">
+                <label>Время проведения набора</label>
+                <div class="input-group">
+                    <input type="text" id="recruitmentDate" placeholder="ДД.ММ.ГГГГ" required>
+                    <input type="text" id="recruitmentTime" placeholder="ЧЧ:ММ" required>
+                </div>
+                <small class="hint">Пример: 01.02.2026 и 14:30</small>
+            </div>
+
+            <div class="form-group">
+                <label for="haStaff">Сотрудники HA</label>
+                <textarea id="haStaff" placeholder="Перечислите через запятую"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Принятые кандидаты</label>
+                <div id="acceptedList">
+                    <div class="accepted-item">
+                        <input type="text" placeholder="Имя Фамилия" required>
+                        <input type="text" placeholder="CID" required>
+                        <button type="button" class="removeBtn">×</button>
+                    </div>
+                </div>
+                <button type="button" id="addAcceptedBtn" class="btn small">+ Добавить кандидата</button>
+            </div>
+
+            <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
+        </form>
+    </main>
+
+
+    <script src="recruitment-script.js"></script>
+</body>
+</html>
