@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Еженедельный отчёт отдела — Hospital Academy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="report-page">
+    <nav class="navbar">
+        <div class="logo">Hospital Academy</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="recruitment-report.html">Отчёт о наборе</a></li>
+            <li><a href="exam-report.html">Отчёт об экзамене</a></li>
+            <li><a href="weekly-report.html" class="active">Еженедельный отчёт HA</a></li>
+            <li><a href="about.html">О нас</a></li>
+        </ul>
+    </nav>
+
+    <main class="report-form">
+        <h2>Еженедельный отчёт отдела</h2>
+        <form id="weeklyReportForm">
+            <!-- Имя и Фамилия | CID -->
+            <div class="form-group">
+                <label>Имя и Фамилия | CID</label>
+                <select id="member" required>
+                    <option value="">Выберите из списка</option>
+                    <option value="Alexei Chernov | CJE4">Alexei Chernov | CJE4</option>
+                    <option value="Dany Tsoi | 94XQ">Dany Tsoi | 94XQ</option>
+                    <option value="Maksim Hartford | CQ18">Maksim Hartford | CQ18</option>
+                    <option value="Bax Bonart | 8BJ4">Bax Bonart | 8BJ4</option>
+                </select>
+            </div>
+
+
+            <!-- Зависимость (Скриншот помощи) -->
+            <div class="form-group">
+                <label for="dependencyScreenshots">Зависимость (Скриншот момента помощи)</label>
+                <textarea
+                    id="dependencyScreenshots"
+                    placeholder="Вставьте ссылки на скриншоты (каждая ссылка с новой строки)"
+                    required
+                ></textarea>
+                <small class="hint">Пример: https://example.com/screenshot1.png</small>
+            </div>
+
+            <!-- Участие в МП/ГМП -->
+            <div class="form-group">
+                <label for="mpGmpScreenshots">Участие в МП/ГМП (Скриншот начала и конца мероприятия)</label>
+                <textarea
+                    id="mpGmpScreenshots"
+                    placeholder="Вставьте ссылки на скриншоты (начало и конец, каждая ссылка с новой строки)"
+                    required
+                ></textarea>
+                <small class="hint">Только мероприятия для гос. структур</small>
+            </div>
+
+            <!-- Участие в наборе Армии -->
+            <div class="form-group">
+                <label for="armyRecruitmentScreenshots">Участие в наборе Армии (Скриншот начала и конца набора)</label>
+                <textarea
+                    id="armyRecruitmentScreenshots"
+                    placeholder="Вставьте ссылки на скриншоты (начало и конец, каждая ссылка с новой строки)"
+                    required
+                ></textarea>
+            </div>
+
+            <!-- Реанимация -->
+            <div class="form-group">
+                <label for="resuscitationScreenshots">Реанимация людей/госслужащих (Скриншот момента реанимации)</label>
+                <textarea
+                    id="resuscitationScreenshots"
+                    placeholder="Вставьте ссылки на скриншоты (каждая ссылка с новой строки)"
+                    required
+                ></textarea>
+            </div>
+
+            <!-- Пост в Холле -->
+            <div class="form-group">
+                <label for="hallPostScreenshots">Пост в Холле 1 час+ (скриншот каждые 20 минут)</label>
+                <textarea
+                    id="hallPostScreenshots"
+                    placeholder="Вставьте ссылки на скриншоты (каждые 20 минут, каждая ссылка с новой строки)"
+                    required
+                ></textarea>
+                <small class="hint">Минимум 3 скриншота за час</small>
+            </div>
+
+
+            <!-- Кнопка отправки -->
+            <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
+        </form>
+    </main>
+
+
+    <script src="weekly-script.js"></script>
+</body>
+</html>

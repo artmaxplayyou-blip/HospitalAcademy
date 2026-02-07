@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hith Staff HA</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .login-form {
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            text-align: center;
+        }
+        .table-container {
+            display: none;
+            padding: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="report-page">
+    <!-- Форма авторизации -->
+    <div class="login-container" id="loginSection">
+        <div class="login-form">
+            <h2>Вход в Hith Staff HA</h2>
+            <input type="password" id="passwordInput" placeholder="Введите пароль">
+            <button onclick="checkPassword()" class="btn">Войти</button>
+        </div>
+    </div>
+
+    <!-- Основная таблица (появляется после авторизации) -->
+    <div class="table-container" id="tableSection">
+        <h2>Hith Staff HA — Статистика</h2>
+        <button onclick="clearReports()" class="btn">Очистить отчёт</button>
+        <table id="staffTable">
+            <thead>
+                <tr>
+                    <th>Имя Фамилия | CID</th>
+                    <th>Отчёт о наборе</th>
+                    <th>Отчёт об экзамене</th>
+                    <th>Вылечено зависимостей</th>
+                    <th>Участие в МП/ГМП</th>
+                    <th>Участие в наборе Армии</th>
+                    <th>Реанимация людей/госслужащих</th>
+                    <th>Пост в Холле 1 час+</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alexei Chernov | CJE4</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Dany Tsoi | 94XQ</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Maksim Hartford | CQ18</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Bax Bonart | 8BJ4</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="hith-staff-ha.js"></script>
+</body>
+</html>

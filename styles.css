@@ -1,0 +1,632 @@
+:root {
+--primary: #7f5af0; /* Фиолетовый акцент */
+--secondary: #5a5fc4; /* Синий */
+--accent: #ff6b6b; /* Коралловый */
+--light: #f8f9fa; /* Светлый фон */
+--white: #ffffff; /* Белый */
+--dark: #1e1e2d; /* Тёмный текст */
+--gray: #94a3b8; /* Серый для подписей */
+--success: #4ade80; /* Зелёный */
+--warning: #fb923c; /* Оранжевый */
+--shadow: rgba(0, 0, 0, 0.08);
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+line-height: 1.6;
+color: var(--dark);
+overflow-x: hidden;
+}
+
+/* Фон с анимацией */
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background:
+radial-gradient(circle at 10% 20%, rgba(127, 90, 240, 0.1) 0%, transparent 20%),
+radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 20%);
+z-index: -1;
+animation: bg-animate 20s linear infinite;
+}
+
+@keyframes bg-animate {
+0% { transform: scale(1); opacity: 0.6; }
+50% { transform: scale(1.1); opacity: 0.8; }
+100% { transform: scale(1); opacity: 0.6; }
+}
+
+/* Верхнее меню — чуть более тёмный чёрно‑прозрачный фон */
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1.5rem 5%;
+/* Более тёмный чёрный (70% прозрачности вместо 60%) */
+background-color: rgba(0, 0, 0, 0.7);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px); /* Для Safari */
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+position: sticky;
+top: 0;
+z-index: 1000;
+}
+
+/* Логотип Hospital Academy */
+.logo {
+font-size: 2rem;
+font-weight: 700;
+background: linear-gradient(45deg, #a58cf7, #7f5af0);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+letter-spacing: 1px;
+/* Подсветка при наведении */
+transition: text-shadow 0.3s;
+}
+
+.logo:hover {
+text-shadow:
+0 0 10px rgba(165, 140, 247, 0.7),
+0 0 20px rgba(165, 140, 247, 0.5),
+0 0 30px rgba(165, 140, 247, 0.3);
+}
+
+/* Меню навигации */
+.nav-menu {
+display: flex;
+gap: 2.5rem; /* Увеличено расстояние между пунктами */
+list-style: none;
+}
+
+/* Пункты меню */
+.nav-menu a {
+font-size: 1.15rem;
+background: linear-gradient(45deg, #a58cf7, #7f5af0);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-decoration: none;
+font-weight: 500;
+transition: all 0.3s;
+position: relative;
+padding: 0.5rem 0.8rem;
+/* Базовая подсветка (опционально) */
+text-shadow: 0 0 2px rgba(165, 140, 247, 0.2);
+}
+
+.nav-menu a:hover {
+transform: translateY(-1px);
+/* Усиленная подсветка при наведении */
+text-shadow:
+0 0 8px rgba(165, 140, 247, 0.6),
+0 0 16px rgba(165, 140, 247, 0.4),
+0 0 24px rgba(165, 140, 247, 0.2);
+}
+
+/* Остальные стили (без изменений) */
+.hero {
+min-height: 80vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+padding: 2rem 1rem;
+gap: 1.5rem;
+}
+
+.hero h1 {
+font-size: 3.5rem;
+color: var(--white);
+font-weight: 700;
+max-width: 800px;
+/* Подсветка (неоновое свечение) */
+text-shadow:
+0 0 10px rgba(127, 90, 240, 0.6), /* Фиолетовое свечение */
+0 0 20px rgba(127, 90, 240, 0.4), /* Расширение свечения */
+0 0 30px rgba(127, 90, 240, 0.2); /* Дальнее свечение */
+animation: pulse 2s infinite alternate; /* Пульсация */
+}
+
+.subtitle {
+font-size: 1.4rem;
+color: var(--white);
+max-width: 600px;
+margin: 0 auto;
+/* Мягкая подсветка */
+text-shadow:
+0 0 8px rgba(165, 140, 247, 0.5), /* Лиловый оттенок */
+0 0 16px rgba(165, 140, 247, 0.3);
+}
+
+
+
+.btn {
+padding: 1.2rem 2.8rem;
+border-radius: 50px;
+font-weight: 600;
+text-decoration: none;
+text-transform: uppercase;
+letter-spacing: 0.8px;
+font-size: 1rem;
+transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+border: none;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn.primary {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: var(--white);
+}
+
+.btn.secondary {
+background: linear-gradient(135deg, var(--accent), #ff8e8e);
+color: var(--white);
+}
+
+.btn:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.btn:active {
+transform: translateY(0);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.report-form {
+max-width: 900px;
+margin: 3rem auto;
+padding: 3.5rem;
+background: var(--white);
+border-radius: 24px;
+box-shadow: 0 30px 80px var(--shadow);
+backdrop-filter: blur(10px);
+}
+
+.report-form h2 {
+text-align: center;
+color: var(--primary);
+margin-bottom: 2.5rem;
+font-size: 2.4rem;
+font-weight: 700;
+}
+
+.form-group {
+margin-bottom: 2rem;
+}
+
+label {
+display: block;
+margin-bottom: 0.8rem;
+font-weight: 600;
+color: var(--dark);
+font-size: 1.15rem;
+transition: color 0.3s;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+textarea,
+select {
+width: 100%;
+padding: 1.2rem 1.4rem;
+border: 2px solid #e9ecef;
+border-radius: 12px;
+font-size: 1.05rem;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+resize: vertical;
+background-color: var(--white);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 4px rgba(127, 90, 240, 0.15);
+transform: translateY(0);
+}
+
+textarea {
+min-height: 140px;
+}
+
+/* Чекбоксы и радио */
+.checkbox-group label,
+.radio-group label {
+display: flex;
+align-items: center;
+gap: 1rem;
+cursor: pointer;
+font-size: 1.1rem;
+color: var(--dark);
+padding: 1rem;
+border-radius: 8px;
+transition: background-color 0.3s, transform 0.2s;
+user-select: none;
+}
+
+.checkbox-group label:hover,
+.radio-group label:hover {
+background-color: rgba(127, 90, 240, 0.05);
+transform: translateX(4px);
+}
+
+.checkbox-group input,
+.radio-group input {
+accent-color: var(--primary);
+width: 1.4rem;
+height: 1.4rem;
+}
+
+/* Кнопка отправки */
+.submit-btn {
+display: block;
+width: 100%;
+padding: 1.4rem;
+border-radius: 50px;
+border: none;
+font-size: 1.2rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+cursor: pointer;
+transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+background: linear-gradient(135deg, var(--success), #22c55e);
+color: var(--white);
+box-shadow: 0 6px 16px rgba(42, 202, 128, 0.3);
+margin-top: 2rem;
+}
+
+.submit-btn:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 28px rgba(42, 202, 128, 0.4);
+}
+
+.submit-btn:active {
+transform: translateY(0);
+box-shadow: 0 6px 14px rgba(42, 202, 128, 0.25);
+}
+
+/* Футер */
+footer {
+text-align: center;
+padding: 3rem 1rem 2rem;
+color: var(--gray);
+font-size: 0.9rem;
+background-color: var(--white);
+border-top: 1px solid rgba(0, 0, 0, 0.08);
+margin-top: auto;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+.navbar {
+flex-direction: column;
+gap: 1rem;
+padding: 1.2rem 5%;
+}
+
+.nav-menu {
+width: 100%;
+justify-content: center;
+gap: 1.5rem; /* Увеличено расстояние между пунктами на мобильных */
+}
+
+.hero {
+padding: 2rem 1rem;
+min-height: auto;
+}
+
+.hero h1 {
+font-size: 2.8rem;
+}
+
+.subtitle {
+font-size: 1.2rem;
+}
+
+.btn {
+width: 90%;
+margin: 0 auto;
+display: block;
+}
+
+.report-form {
+margin: 2rem auto;
+padding: 2.5rem 1.5rem;
+}
+
+.checkbox-group,
+.radio-group {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 480px) {
+.hero h1 {
+font-size: 2.2rem;
+}
+
+.subtitle {
+font-size: 1.1rem;
+}
+
+.btn {
+padding: 1.1rem 2rem;
+font-size: 0.95rem;
+}
+
+.report-form {
+padding: 2rem 1rem;
+}
+
+label {
+font-size: 1rem;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+textarea,
+select {
+padding: 1rem 1.2rem;
+font-size: 1rem;
+}
+
+.submit-btn {
+padding: 1.2rem;
+font-size: 1.1rem;
+}
+}
+
+/* Группа полей с двумя инпутами (Имя + CID) */
+.input-group {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+.input-group input {
+flex: 1 1 200px;
+}
+
+/* Радио-кнопки */
+.radio-group {
+display: flex;
+gap: 2rem;
+flex-wrap: wrap;
+}
+
+.radio-group label {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+cursor: pointer;
+font-size: 1.1rem;
+color: var(--dark);
+padding: 1rem;
+border-radius: 8px;
+transition: background-color 0.3s, transform 0.2s;
+}
+
+.radio-group label:hover {
+background-color: rgba(127, 90, 240, 0.05);
+transform: translateX(2px);
+}
+
+.radio-group input {
+accent-color: var(--success);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+.input-group {
+flex-direction: column;
+}
+
+.radio-group {
+gap: 1rem;
+}
+}
+
+/* Фоновое изображение только для главной страницы */
+.hero-bg {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh; /* Занимает всю высоту экрана */
+background-image: url('images/background.jpg'); /* Укажите путь к вашему изображению */
+background-size: cover; /* Заполняет весь контейнер */
+background-position: center; /* Центрирует изображение */
+background-repeat: no-repeat; /* Не повторяет */
+z-index: -1; /* Фон под содержимым */
+filter: blur(8px); /* Лёгкое размытие (опционально) */
+-webkit-filter: blur(8px);
+}
+
+/* Содержимое поверх фона */
+.content {
+position: relative;
+z-index: 1;
+}
+@keyframes pulse {
+0% {
+text-shadow:
+0 0 10px rgba(127, 90, 240, 0.6),
+0 0 20px rgba(127, 90, 240, 0.4),
+0 0 30px rgba(127, 90, 240, 0.2);
+}
+100% {
+text-shadow:
+0 0 15px rgba(127, 90, 240, 0.8),
+0 0 30px rgba(127, 90, 240, 0.6),
+0 0 45px rgba(127, 90, 240, 0.4);
+}
+}
+/* Стили для фона отчётов (только для страниц Отчёт о наборе и Отчёт об экзамене) */
+.report-page {
+background-image: url('./images/textured-background.jpg'); /* путь к вашему изображению */
+background-size: cover; /* масштабируем изображение на весь экран */
+background-position: center; /* центрируем изображение */
+background-repeat: no-repeat; /* запрещаем повторение изображения */
+background-attachment: fixed; /* фиксируем фон при прокрутке */
+min-height: 100vh; /* минимальная высота — весь экран */
+}
+
+/* Сохраняем стили для формы, чтобы она не сливалась с фоном */
+.report-form {
+max-width: 900px;
+margin: 3rem auto;
+padding: 3.5rem;
+background: var(--white); /* белый фон для формы */
+border-radius: 24px;
+box-shadow: 0 30px 80px var(--shadow);
+backdrop-filter: blur(10px); /* размытие фона за формой */
+}
+
+/* Стили для нижнего колонтитула с указанием авторов (без фона) */
+.credits {
+text-align: center; /* Выравнивание по центру */
+padding: 2rem 0; /* Отступы сверху/снизу */
+margin-top: auto; /* Прижимает футер к низу страницы */
+color: var(--white); /* Белый цвет текста */
+font-size: 0.8rem; /* Маленький размер шрифта */
+font-weight: 300; /* Лёгкая жирность шрифта */
+line-height: 1.4; /* Межстрочный интервал */
+background: none; /* Явно указываем отсутствие фона */
+}
+
+.credits p {
+margin: 0; /* Убираем стандартные отступы у параграфа */
+}
+/* Фон для отчётов (как у "Отчёт о наборе" и "Отчёт об экзамене") */
+.report-page {
+background-image: url('./images/textured-background.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+min-height: 100vh;
+}
+
+/* Стили формы */
+.report-form {
+max-width: 900px;
+margin: 3rem auto;
+padding: 3.5rem;
+background: var(--white);
+border-radius: 24px;
+box-shadow: 0 30px 80px var(--shadow);
+backdrop-filter: blur(10px);
+}
+
+/* Текстовые поля */
+textarea {
+min-height: 120px;
+resize: vertical;
+width: 100%;
+padding: 1.2rem 1.4rem;
+border: 2px solid #e9ecef;
+border-radius: 12px;
+font-size: 1.05rem;
+transition: all 0.3s;
+}
+
+textarea:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 4px rgba(127, 90, 240, 0.15);
+}
+
+/* Подсказки */
+.hint {
+display: block;
+margin-top: 0.5rem;
+color: var(--gray);
+font-size: 0.85rem;
+}
+
+/* Кнопка отправки */
+.submit-btn {
+margin-top: 2rem;
+display: block;
+width: 100%;
+padding: 1.4rem;
+border-radius: 50px;
+border: none;
+font-size: 1.2rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+cursor: pointer;
+transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+background: linear-gradient(135deg, var(--success), #22c55e);
+color: var(--white);
+box-shadow: 0 6px 16px rgba(42, 202, 128, 0.3);
+}
+
+.submit-btn:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 28px rgba(42, 202, 128, 0.4);
+}
+
+/* Стили для вкладок */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    border: none;
+    background: var(--light);
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.tab-button:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.tab-button.active {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tab-content {
+    padding: 2.5rem;
+    border: 2px solid var(--primary);
+    border-radius: 0 8px 8px 8px;
+    background: var(--white);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
+}
+
+/* Адаптивность для вкладок */
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        text-align: left;
+        width: 100%;
+    }
+}
