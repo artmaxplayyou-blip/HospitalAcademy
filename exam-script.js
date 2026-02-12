@@ -75,7 +75,6 @@ function sendToDiscord(payload, examiner) {
     // ВАЖНО: замените URL на корректный (без лишних символов)
     const webhookURL = 'https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw';
 
-
     fetch(webhookURL, {
         method: 'POST',
         headers: {
