@@ -1,7 +1,7 @@
 document.getElementById('weeklyReportForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Сбор данных
+    // Сбор данных из формы
     const data = {
         member: document.getElementById('member').value.trim(),
         dependencyScreenshots: document.getElementById('dependencyScreenshots').value
@@ -16,17 +16,33 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
             .trim().split('\n').filter(link => link.trim() !== '')
     };
 
+    // Проверка обязательного поля
     if (!data.member) {
         alert('Укажите имя и CID участника!');
         return;
     }
 
-    // Формирование Embed
+    // Дополнительная проверка формата: "Фамилия Имя | CID" с пробелами вокруг |
+    const memberPattern = /^.+\s+\|\s+.+$/;
+    if (!memberPattern.test(data.member)) {
+        alert(
+            'Введите данные в формате: "Фамилия Имя | CID"\n' +
+            'Пример: "Иванов Иван | AB12"\n' +
+            'Пробелы вокруг символа | обязательны.'
+        );
+        return;
+    }
+
+    // Формирование Embed для Discord
     const embed = {
         title: 'Еженедельный отчёт отдела Hospital Academy',
         color: 0x999999,
         fields: [
-            { name: 'Имя и Фамилия | CID', value: data.member, inline: false },
+            {
+                name: 'Имя и Фамилия | CID',
+                value: data.member,
+                inline: false
+            },
             {
                 name: 'Зависимость (Скриншоты помощи)',
                 value: data.dependencyScreenshots.length
@@ -64,39 +80,47 @@ document.getElementById('weeklyReportForm').addEventListener('submit', async fun
             }
         ],
         timestamp: new Date().toISOString(),
-        footer: { text: 'Hospital Academy | Еженедельный отчёт' }
+        footer: {
+            text: 'Hospital Academy | Еженедельный отчёт'
+        }
     };
 
     try {
-        const response = await fetch('https://discord.com/api/webhooks/1432858037835665639/Q5G6uC6QYZ_wVzMPPliEPAy5BJpcjx0lGTxlupAI8pOVVlYA1oXN2j-zhFlzykpJQQS0', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                content: '<@&1412079127951048805> <@&1412081593727717438>',
-                embeds: [embed]
-            })
-        });
+        const response = await fetch(
+            'https://discord.com/api/webhooks/1432858037835665639/Q5G6uC6QYZ_wVzMPPliEPAy5BJpcjx0lGTxlupAI8pOVVlYA1oXN2j-zhFlzykpJQQS0',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: '<@&1412079127951048805> <@&1412081593727717438>',
+                    embeds: [embed]
+                })
+            }
+        );
 
         if (response.ok) {
             alert('Отчёт успешно отправлен в Discord!');
             document.getElementById('weeklyReportForm').reset();
 
-
-            // Обновление счётчиков
-            if (data.dependencyScreenshots.length && typeof incrementStat === 'function') {
-                incrementStat(data.member, 'dependency');
-            }
-            if (data.mpGmpScreenshots.length && typeof incrementStat === 'function') {
-                incrementStat(data.member, 'mpGmp');
-            }
-            if (data.armyRecruitmentScreenshots.length && typeof incrementStat === 'function') {
-                incrementStat(data.member, 'armyRecruitment');
-            }
-            if (data.resuscitationScreenshots.length && typeof incrementStat === 'function') {
-                incrementStat(data.member, 'resuscitation');
-            }
-            if (data.hallPostScreenshots.length && typeof incrementStat === 'function') {
-                incrementStat(data.member, 'hallPost');
+            // Обновление счётчиков (если функция incrementStat доступна)
+            if (typeof incrementStat === 'function') {
+                if (data.dependencyScreenshots.length) {
+                    incrementStat(data.member, 'dependency');
+                }
+                if (data.mpGmpScreenshots.length) {
+                    incrementStat(data.member, 'mpGmp');
+                }
+                if (data.armyRecruitmentScreenshots.length) {
+                    incrementStat(data.member, 'armyRecruitment');
+                }
+                if (data.resuscitationScreenshots.length) {
+                    incrementStat(data.member, 'resuscitation');
+                }
+                if (data.hallPostScreenshots.length) {
+                    incrementStat(data.member, 'hallPost');
+                }
             }
         } else {
             const errorText = await response.text();
