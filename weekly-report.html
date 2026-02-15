@@ -21,18 +21,17 @@
     <main class="report-form">
         <h2>Еженедельный отчёт отдела</h2>
         <form id="weeklyReportForm">
-            <!-- Имя и Фамилия | CID -->
+            <!-- Имя и Фамилия | CID (теперь поле ввода) -->
             <div class="form-group">
-                <label>Имя и Фамилия | CID</label>
-                <select id="member" required>
-                    <option value="">Выберите из списка</option>
-                    <option value="Alexei Chernov | CJE4">Alexei Chernov | CJE4</option>
-                    <option value="Dany Tsoi | 94XQ">Dany Tsoi | 94XQ</option>
-                    <option value="Maksim Hartford | CQ18">Maksim Hartford | CQ18</option>
-                    <option value="Bax Bonart | 8BJ4">Bax Bonart | 8BJ4</option>
-                </select>
+                <label for="member">Имя и Фамилия | CID</label>
+                <input
+                    type="text"
+                    id="member"
+                    placeholder="Например: Иван Иванов | AB12"
+                    required
+                >
+                <small class="hint">Введите ФИО и CID через символ | (с пробелами по бокам)</small>
             </div>
-
 
             <!-- Зависимость (Скриншот помощи) -->
             <div class="form-group">
@@ -87,12 +86,10 @@
                 <small class="hint">Минимум 3 скриншота за час</small>
             </div>
 
-
             <!-- Кнопка отправки -->
             <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
         </form>
     </main>
-
 
     <script src="weekly-script.js"></script>
 </body>
