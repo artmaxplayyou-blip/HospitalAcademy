@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const candidateName = document.getElementById('candidateName').value.trim();
         const candidateCID = document.getElementById('candidateCID').value.trim();
 
-        // Формируем строку "Имя Фамилия | CID"
+        // Формируем строку "Имя Фамилия | CID" для кандидата
         const candidate = `${candidateName} | ${candidateCID}`;
 
         // Собираем выбранные экзамены (чекбоксы)
@@ -19,10 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
             exams.push(checkbox.value);
         });
 
-        // Получаем результат (радио-кнопка)
+        // Получаем результат (радио‑кнопка)
         const result = document.querySelector('input[name="result"]:checked');
         if (!result) {
             alert('Пожалуйста, выберите результат экзамена!');
+            return;
+        }
+
+        // Проверяем, что поле экзаменатора заполнено
+        if (!examiner) {
+            alert('Пожалуйста, укажите, кто принимал экзамен (Имя Фамилия | CID)');
             return;
         }
 
@@ -38,32 +44,31 @@ document.addEventListener('DOMContentLoaded', function() {
                             name: '🔹 Кто принимал:',
                             value: `> ${examiner}`,
                             inline: false
-                        },
-                        {
-                            name: '🔹 У кого принимали:',
-                            value: `> ${candidate}`,
-                            inline: false
-                        },
-                        {
-                            name: '🔹 Сданные экзамены:',
-                            value: exams.length > 0
-                                ? exams.map(exam => `> ${exam}`).join('\n')
-                                : '> Не выбрано',
-                            inline: false
-                        },
-                        {
-                            name: '🔹 Результат:',
-                            value: `> **${result.value}**`,
-                            inline: false
-                        }
-                    ],
-                    footer: {
-                        text: ''
-                    },
-                    timestamp: new Date().toISOString() // текущее время
+                },
+                {
+                    name: '🔹 У кого принимали:',
+                    value: `> ${candidate}`,
+                    inline: false
+                },
+                {
+                    name: '🔹 Сданные экзамены:',
+                    value: exams.length > 0
+                        ? exams.map(exam => `> ${exam}`).join('\n')
+                        : '> Не выбрано',
+                    inline: false
+                },
+                {
+                    name: '🔹 Результат:',
+                    value: `> **${result.value}**`,
+                    inline: false
                 }
-            ]
-        };
+            ],
+            footer: {
+                text: ''
+            },
+            timestamp: new Date().toISOString() // текущее время
+        }
+    ];
 
         // 3. Отправляем в Discord
         sendToDiscord(embed, examiner);
@@ -105,6 +110,6 @@ function sendToDiscord(payload, examiner) {
     .catch(error => {
         // Ошибка сети/CORS
         console.error('Критическая ошибка:', error);
-        alert('Не удалось отправить отчёт. Проверьте интернет-соединение и URL вебхука.');
+        alert('Не удалось отправить отчёт. Проверьте интернет‑соединение и URL вебхука.');
     });
 }
