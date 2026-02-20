@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Сбор данных формы
         const data = {
             announcementType: document.getElementById('announcementType').value,
-            interviewLeader: document.getElementById('interviewLeader').value,
+            interviewLeader: document.getElementById('interviewLeader').value.trim(),
             recruitmentDate: document.getElementById('recruitmentDate').value,
             recruitmentTime: document.getElementById('recruitmentTime').value,
             haStaff: document.getElementById('haStaff').value,
             accepted: []
         };
+
+        // Проверка заполнения поля «Главный по собеседованию»
+        if (!data.interviewLeader) {
+            alert('Пожалуйста, укажите Главного по собеседованию (Имя Фамилия | CID)');
+            return;
+        }
 
         // Собираем принятых кандидатов
         document.querySelectorAll('.accepted-item').forEach(item => {
