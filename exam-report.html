@@ -21,16 +21,15 @@
     <main class="report-form">
         <h2>Отчёт об экзамене</h2>
         <form id="examForm">
-            <!-- 1. Кто принимал экзамен -->
+            <!-- 1. Кто принимал экзамен (текстовое поле) -->
             <div class="form-group">
-                <label for="examiner">Кто принимал экзамен?</label>
-                <select id="examiner" required>
-                    <option value="">Выберите из списка</option>
-                    <option value="Alexei Chernov | CJE4">Alexei Chernov | CJE4</option>
-                    <option value="Dany Tsoi | 94XQ">Dany Tsoi | 94XQ</option>
-                    <option value="Maksim Hartford | CQ18">Maksim Hartford | CQ18</option>
-                    <option value="[HA] Lion Adomcky | 6S5Z">[HA] Lion Adomcky | 6S5Z</option>
-                </select>
+                <label for="examiner">Кто принимал экзамен? (Имя Фамилия | CID)</label>
+                <input
+                    type="text"
+                    id="examiner"
+                    placeholder="Иван Иванов | ABC123"
+                    required
+                >
             </div>
 
             <!-- 2. У кого принимали -->
@@ -60,49 +59,49 @@
                         <input type="checkbox" value="Клятва Врача">
                         📕 | Клятва Врача
                     </label>
-                    <label>
-                        <input type="checkbox" value="Устав">
-                        📔 | Устав
-                    </label>
-                    <label>
-                        <input type="checkbox" value="Медикаменты">
-                        💊 | Медикаменты
-                    </label>
-                    <label>
-                        <input type="checkbox" value="Тен-коды">
-                        📗┃Тен-коды
-                    </label>
-                    <label>
-                        <input type="checkbox" value="Транспорт больницы">
-                        🚑 | Транспорт больницы
-                    </label>
-                    <label>
-                        <input type="checkbox" value="Положение о радиосвязи">
-                        📘┃Положение об использовании радиосвязи
-                    </label>
-                </div>
-            </div>
+            <label>
+                <input type="checkbox" value="Устав">
+                📔 | Устав
+            </label>
+            <label>
+                <input type="checkbox" value="Медикаменты">
+                💊 | Медикаменты
+            </label>
+            <label>
+                <input type="checkbox" value="Тен-коды">
+                📗┃Тен-коды
+            </label>
+            <label>
+                <input type="checkbox" value="Транспорт больницы">
+                🚑 | Транспорт больницы
+            </label>
+            <label>
+                <input type="checkbox" value="Положение о радиосвязи">
+                📘┃Положение об использовании радиосвязи
+            </label>
+        </div>
+    </div>
 
-            <!-- 4. Результат: Сдал / Не сдал -->
-            <div class="form-group">
-                <label>Результат:</label>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="result" value="Сдал" required>
-                        Сдал ✅
-                    </label>
-                    <label>
-                        <input type="radio" name="result" value="Не сдал">
-                        Не сдал ❌
-                    </label>
-                </div>
-            </div>
+    <!-- 4. Результат: Сдал / Не сдал -->
+    <div class="form-group">
+        <label>Результат:</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="result" value="Сдал" required>
+                Сдал ✅
+            </label>
+            <label>
+                <input type="radio" name="result" value="Не сдал">
+                Не сдал ❌
+            </label>
+        </div>
+    </div>
 
-            <!-- Кнопка отправки -->
-            <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
-        </form>
-    </main>
+    <!-- Кнопка отправки -->
+    <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
+</form>
+</main>
 
-    <script src="exam-script.js"></script>
+<script src="exam-script.js"></script>
 </body>
 </html>
