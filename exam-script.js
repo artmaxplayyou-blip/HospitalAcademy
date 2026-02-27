@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Функция отправки в Discord
 function sendToDiscord(payload, examiner) {
     // ВАЖНО: замените URL на корректный
-    const webhookURL = 'https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw';
+    const webhookURL = 'https://discord.com/api/webhooks/1475920270492565665/Jvw_ng5hLZqbp9ZPCwDrohTrtDuvHpDYQbq-8VgqEnfCmsUNR8brbpuohb20U9QRwiN8';
 
     // Индикация загрузки
     const submitBtn = document.querySelector('.submit-btn');
@@ -160,4 +160,5 @@ function sendToDiscord(payload, examiner) {
         }
     });
 }
+
 
