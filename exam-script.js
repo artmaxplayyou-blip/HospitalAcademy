@@ -1,18 +1,26 @@
+// exam-script.js
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('examForm');
+    if (!form) {
+        console.error('Форма с id "examForm" не найдена!');
+        return;
+    }
 
-    // Обработчик отправки формы
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // 1. Собираем данные из полей формы с предварительной проверкой существования элементов
+        // 1. Проверяем наличие всех полей
         const examinerInput = document.getElementById('examiner');
         const candidateNameInput = document.getElementById('candidateName');
         const candidateCIDInput = document.getElementById('candidateCID');
 
         if (!examinerInput || !candidateNameInput || !candidateCIDInput) {
-            console.error('Один из элементов формы не найден');
-            alert('Произошла ошибка: элементы формы недоступны');
+            console.error('Один из элементов формы не найден', {
+                examiner: !!examinerInput,
+                candidateName: !!candidateNameInput,
+                candidateCID: !!candidateCIDInput
+            });
+            alert('Ошибка: не все поля формы доступны. Проверьте консоль.');
             return;
         }
 
@@ -20,29 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const candidateName = candidateNameInput.value.trim();
         const candidateCID = candidateCIDInput.value.trim();
 
-        // Валидация полей
         if (!examiner) {
             alert('Пожалуйста, укажите, кто принимал экзамен (Имя Фамилия | CID)');
             examinerInput.focus();
             return;
         }
-
         if (!candidateName) {
             alert('Пожалуйста, заполните имя кандидата');
             candidateNameInput.focus();
             return;
         }
-
         if (!candidateCID) {
             alert('Пожалуйста, заполните CID кандидата');
             candidateCIDInput.focus();
             return;
         }
 
-        // Формируем строку «Имя Фамилия | CID» для кандидата
+        // Формируем строку кандидата
         const candidate = `${candidateName} | ${candidateCID}`;
 
-        // Собираем выбранные экзамены (чекбоксы)
+        // 2. Собираем выбранные экзамены
         const exams = [];
         document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
             exams.push(checkbox.value);
@@ -53,112 +58,113 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Получаем результат (радио‑кнопка)
+        // 3. Результат экзамена
         const result = document.querySelector('input[name="result"]:checked');
         if (!result) {
             alert('Пожалуйста, выберите результат экзамена!');
             return;
         }
 
-        // Экранирование данных для защиты от специальных символов
-        function escapeMarkdown(text) {
-            return text.replace(/([_*\[\]()~`+=|{}.!-])/g, '\$1');
-        }
+        // 4. Экранирование Markdown-символов (для безопасности)
+        const escapeMarkdown = (text) => text.replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
+
         const examinerSafe = escapeMarkdown(examiner);
         const candidateSafe = escapeMarkdown(candidate);
+        const examsSafe = exams.map(exam => escapeMarkdown(exam));
+        const resultSafe = escapeMarkdown(result.value);
 
-        // 2. Формируем Embed для Discord
-        const embed = {
+        // 5. Проверка длины полей (ограничение Discord: 1024 символа)
+        const examsText = examsSafe.map(exam => `> ${exam}`).join('\n');
+        if (examsText.length > 1024) {
+            alert('Слишком много экзаменов! Сократите список.');
+            return;
+        }
+
+        // 6. Формируем payload для Discord Webhook
+        const payload = {
             content: '<@&1412079127951048805> <@&1412081593727717438>', // упоминания ролей
             embeds: [
                 {
                     title: '📊 ОТЧЁТ ОБ ЭКЗАМЕНЕ — Hospital Academy',
-                    color: 0x00AE86, // Зелёный цвет — более читаемый
+                    color: 0x00AE86, // цвет в десятичном формате (можно и 0x00AE86)
                     fields: [
                         {
                             name: '🔹 Кто принимал:',
                             value: `> ${examinerSafe}`,
                             inline: false
-                },
-                {
-                    name: '🔹 У кого принимали:',
-            value: `> ${candidateSafe}`,
-            inline: false
-        },
-        {
-            name: '🔹 Пройденные экзамены:',
-            value: exams.map(exam => `> ${escapeMarkdown(exam)}`).join('\n'),
-            inline: false
-        },
-        {
-            name: '🔹 Результат:',
-            value: `> **${result.value}**`,
-            inline: false
-        }
-            ],
-            footer: {
-                text: 'Отчёт сформирован автоматически'
-            },
-            timestamp: new Date().toISOString() // текущее время
-        }
-    ];
+                        },
+                        {
+                            name: '🔹 У кого принимали:',
+                            value: `> ${candidateSafe}`,
+                            inline: false
+                        },
+                        {
+                            name: '🔹 Пройденные экзамены:',
+                            value: examsText,
+                            inline: false
+                        },
+                        {
+                            name: '🔹 Результат:',
+                            value: `> **${resultSafe}**`,
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: 'Отчёт сформирован автоматически'
+                    },
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
 
-        // 3. Отправляем в Discord
-        sendToDiscord(embed, examiner);
+        // 7. Отправка в Discord
+        await sendToDiscord(payload, examiner);
     });
 });
 
-// Функция отправки в Discord
-function sendToDiscord(payload, examiner) {
-    // ВАЖНО: замените URL на корректный
+// Функция отправки (теперь асинхронная, с улучшенной обработкой)
+async function sendToDiscord(payload, examiner) {
     const webhookURL = 'https://discord.com/api/webhooks/1475920270492565665/Jvw_ng5hLZqbp9ZPCwDrohTrtDuvHpDYQbq-8VgqEnfCmsUNR8brbpuohb20U9QRwiN8';
-
-    // Индикация загрузки
     const submitBtn = document.querySelector('.submit-btn');
-    if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Отправка...';
-    }
+    const originalText = submitBtn ? submitBtn.textContent : '';
 
-    fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
-    .then(response => {
+    try {
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Отправка...';
+        }
+
+        console.log('Отправляемый payload:', JSON.stringify(payload, null, 2)); // отладка
+
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
         if (response.ok) {
-            // 4. Успешная отправка: сбрасываем форму и обновляем статистику
-            alert('Отчёт успешно отправлен в Discord!');
+            alert('✅ Отчёт успешно отправлен в Discord!');
             document.getElementById('examForm').reset();
 
-            // Увеличиваем счётчик для экзаменатора
+            // Если есть функция статистики – вызываем
             if (typeof incrementStat === 'function') {
                 incrementStat(examiner, 'exam');
             } else {
-                console.warn('Функция incrementStat не найдена!');
+                console.warn('Функция incrementStat не определена');
             }
         } else {
-            // Ошибка отправки
-            response.text().then(text => {
-                console.error('Ошибка Discord API:', text);
-                alert(`Ошибка отправки отчёта. Статус: ${response.status}`);
-            });
+            // Пытаемся получить текст ошибки от Discord
+            const errorText = await response.text();
+            console.error('Ошибка Discord API:', response.status, errorText);
+            alert(`❌ Ошибка отправки. Код: ${response.status}\nПроверьте консоль (F12) для деталей.`);
         }
-    })
-    .catch(error => {
-        // Ошибка сети/CORS
-        console.error('Критическая ошибка:', error);
-        alert('Не удалось отправить отчёт. Проверьте интернет‑соединение и URL вебхука.');
-    })
-    .finally(() => {
-        // Сброс состояния кнопки
+    } catch (error) {
+        console.error('Критическая ошибка при отправке:', error);
+        alert('❌ Не удалось отправить отчёт. Возможно, проблемы с сетью или CORS.');
+    } finally {
         if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Отправить отчёт в Discord';
+            submitBtn.textContent = originalText || 'Отправить отчёт в Discord';
         }
-    });
+    }
 }
-
-
