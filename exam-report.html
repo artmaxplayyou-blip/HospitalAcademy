@@ -549,7 +549,7 @@
             // Отправка в Discord
             async function sendToDiscord(embed) {
                 // Если вебхук не настроен — имитация (для демо)
-                if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes('ВАШ_ВЕБХУК')) {
+                if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes('https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw')) {
                     console.warn('Вебхук не настроен. Вместо отправки показываем уведомление.');
                     showNotification('✅ Демо-режим: отчёт сформирован (вебхук не указан)', false);
                     return;
@@ -591,4 +591,5 @@
     </script>
 </body>
 </html>
+
 
