@@ -92,6 +92,8 @@
             display: flex;
             gap: 2.5rem;
             list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .nav-menu a {
@@ -105,6 +107,7 @@
             position: relative;
             padding: 0.5rem 0.8rem;
             text-shadow: 0 0 2px rgba(165, 140, 247, 0.2);
+            white-space: nowrap;
         }
 
         .nav-menu a:hover,
@@ -319,6 +322,11 @@
         }
 
         /* ========== АДАПТАЦИЯ ========== */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 1.5rem;
+            }
+        }
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -328,7 +336,11 @@
             .nav-menu {
                 width: 100%;
                 justify-content: center;
-                gap: 1.5rem;
+                gap: 1rem;
+            }
+            .nav-menu a {
+                font-size: 1rem;
+                padding: 0.4rem 0.5rem;
             }
             .report-form {
                 margin: 2rem auto;
@@ -351,10 +363,12 @@
     <nav class="navbar">
         <div class="logo">Hospital Academy</div>
         <ul class="nav-menu">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Отчёт о наборе</a></li>
-            <li><a href="#" class="active">Отчёт об экзаменах</a></li>
-            <li><a href="#">О проекте</a></li>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="hith-staff-ha.html">High Staff HA</a></li>
+            <li><a href="recruitment-report.html">Отчёт о наборе</a></li>
+            <li><a href="exam-report.html" class="active">Отчёт об экзаменах</a></li>
+            <li><a href="weekly-report.html">Еженедельный отчёт</a></li>
+            <li><a href="about.html">О проекте</a></li>
         </ul>
     </nav>
 
@@ -591,5 +605,3 @@
     </script>
 </body>
 </html>
-
-
