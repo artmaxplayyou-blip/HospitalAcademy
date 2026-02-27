@@ -27,7 +27,8 @@
                 <input
                     type="text"
                     id="examiner"
-                    placeholder="Например: Maksim Hartford | CQ18"
+                    name="examiner"
+                    placeholder="Например: Maksim Hartford | CQ18"
                     required
                 >
             </div>
@@ -36,15 +37,20 @@
             <div class="form-group">
                 <label>У кого принимали?</label>
                 <div class="input-group">
+                    <label for="candidateName">Имя и фамилия:</label>
                     <input
                         type="text"
                         id="candidateName"
+                        name="candidateName"
                         placeholder="Имя Фамилия"
                         required
                     >
+                    
+                    <label for="candidateCID">CID:</label>
                     <input
                         type="text"
                         id="candidateCID"
+                        name="candidateCID"
                         placeholder="CID"
                         required
                     >
@@ -55,30 +61,42 @@
             <div class="form-group">
                 <label>Список экзаменов (выберите один или несколько):</label>
                 <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" value="Клятва Врача">
-                        📕 | Клятва Врача
-                    </label>
-            <label>
-                <input type="checkbox" value="Устав">
-                📔 | Устав
-            </label>
-            <label>
-                <input type="checkbox" value="Медикаменты">
-                💊 | Медикаменты
-            </label>
-            <label>
-                <input type="checkbox" value="Тен-коды">
-                📗┃Тен-коды
-            </label>
-            <label>
-                <input type="checkbox" value="Транспорт больницы">
-                🚑 | Транспорт больницы
-            </label>
-            <label>
-                <input type="checkbox" value="Положение о радиосвязи">
-                📘┃Положение об использовании радиосвязи
-            </label>
+                    <div>
+                        <label for="oath">
+                            <input type="checkbox" id="oath" name="exams" value="Клятва Врача">
+                            📕 | Клятва Врача
+                        </label>
+                    </div>
+                    <div>
+                        <label for="charter">
+                            <input type="checkbox" id="charter" name="exams" value="Устав">
+                            📔 | Устав
+                        </label>
+                    </div>
+                    <div>
+                        <label for="medicines">
+                            <input type="checkbox" id="medicines" name="exams" value="Медикаменты">
+                            💊 | Медикаменты
+                        </label>
+                    </div>
+                    <div>
+                        <label for="tenCodes">
+                            <input type="checkbox" id="tenCodes" name="exams" value="Тен-коды">
+                            📗 | Тен-коды
+                        </label>
+                    </div>
+            <div>
+                <label for="transport">
+                    <input type="checkbox" id="transport" name="exams" value="Транспорт больницы">
+                    🚑 | Транспорт больницы
+                </label>
+            </div>
+            <div>
+                <label for="radioRegulations">
+                    <input type="checkbox" id="radioRegulations" name="exams" value="Положение о радиосвязи">
+                    📘 | Положение об использовании радиосвязи
+                </label>
+            </div>
         </div>
     </div>
 
@@ -86,12 +104,12 @@
     <div class="form-group">
         <label>Результат:</label>
         <div class="radio-group">
-            <label>
-                <input type="radio" name="result" value="Сдал" required>
+            <label for="passed">
+                <input type="radio" id="passed" name="result" value="Сдал" required>
                 Сдал ✅
             </label>
-            <label>
-                <input type="radio" name="result" value="Не сдал">
+            <label for="failed">
+                <input type="radio" id="failed" name="result" value="Не сдал">
                 Не сдал ❌
             </label>
         </div>
@@ -105,4 +123,3 @@
 <script src="exam-script.js"></script>
 </body>
 </html>
-
