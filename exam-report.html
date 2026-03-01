@@ -4,362 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Academy — Отчёт об экзаменах</title>
-    <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <style>
-        /* ========== БАЗОВЫЕ ПЕРЕМЕННЫЕ И СБРОС ========== */
-        :root {
-            --primary: #7f5af0;
-            --secondary: #5a5fc4;
-            --accent: #ff6b6b;
-            --light: #f8f9fa;
-            --white: #ffffff;
-            --dark: #1e1e2d;
-            --gray: #94a3b8;
-            --success: #4ade80;
-            --warning: #fb923c;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            overflow-x: hidden;
-        }
-
-        /* Фон с анимацией (поверх картинки) */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(127, 90, 240, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 20%);
-            z-index: -1;
-            animation: bg-animate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes bg-animate {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 0.6; }
-        }
-
-        /* ========== НАВИГАЦИЯ ========== */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #a58cf7, #7f5af0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            transition: text-shadow 0.3s;
-        }
-
-        .logo:hover {
-            text-shadow:
-                0 0 10px rgba(165, 140, 247, 0.7),
-                0 0 20px rgba(165, 140, 247, 0.5),
-                0 0 30px rgba(165, 140, 247, 0.3);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-menu a {
-            font-size: 1.15rem;
-            background: linear-gradient(45deg, #a58cf7, #7f5af0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            padding: 0.5rem 0.8rem;
-            text-shadow: 0 0 2px rgba(165, 140, 247, 0.2);
-            white-space: nowrap;
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            transform: translateY(-1px);
-            text-shadow:
-                0 0 8px rgba(165, 140, 247, 0.6),
-                0 0 16px rgba(165, 140, 247, 0.4),
-                0 0 24px rgba(165, 140, 247, 0.2);
-        }
-
-        /* ========== ОСНОВНОЙ ФОН ДЛЯ СТРАНИЦ ОТЧЁТОВ ========== */
-        .report-page {
-            background-image: url('./images/textured-background.jpg'); /* замените на свой путь */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-
-        /* ========== ФОРМА ОТЧЁТА ========== */
-        .report-form {
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 3.5rem;
-            background: var(--white);
-            border-radius: 24px;
-            box-shadow: 0 30px 80px var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-
-        .report-form h2 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 2.5rem;
-            font-size: 2.4rem;
-            font-weight: 700;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.15rem;
-            transition: color 0.3s;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 1.2rem 1.4rem;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: var(--white);
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(127, 90, 240, 0.15);
-            transform: translateY(0);
-        }
-
-        /* Группа полей Имя + CID */
-        .input-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .input-group input {
-            flex: 1 1 200px;
-        }
-
-        /* Чекбоксы */
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--dark);
-            padding: 1rem;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            user-select: none;
-            font-weight: 400;
-            margin-bottom: 0;
-        }
-
-        .checkbox-group label:hover {
-            background-color: rgba(127, 90, 240, 0.05);
-            transform: translateX(4px);
-        }
-
-        .checkbox-group input {
-            accent-color: var(--primary);
-            width: 1.4rem;
-            height: 1.4rem;
-        }
-
-        /* Радио-кнопки */
-        .radio-group {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--dark);
-            padding: 1rem;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            font-weight: 400;
-        }
-
-        .radio-group label:hover {
-            background-color: rgba(127, 90, 240, 0.05);
-            transform: translateX(2px);
-        }
-
-        .radio-group input {
-            accent-color: var(--success);
-            width: 1.4rem;
-            height: 1.4rem;
-        }
-
-        /* Кнопка отправки */
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 1.4rem;
-            border-radius: 50px;
-            border: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            background: linear-gradient(135deg, var(--success), #22c55e);
-            color: var(--white);
-            box-shadow: 0 6px 16px rgba(42, 202, 128, 0.3);
-            margin-top: 2rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(42, 202, 128, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 6px 14px rgba(42, 202, 128, 0.25);
-        }
-
-        /* ========== ФУТЕР ========== */
-        .credits {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--white);
-            font-size: 0.8rem;
-            font-weight: 300;
-            line-height: 1.4;
-            background: none;
-        }
-
-        /* ========== УВЕДОМЛЕНИЯ ========== */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            background: var(--white);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 9999;
-            font-weight: 500;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            border-left: 6px solid var(--success);
-        }
-        .notification.error {
-            border-left-color: var(--accent);
-        }
-        .notification.show {
-            display: flex;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* ========== АДАПТАЦИЯ ========== */
-        @media (max-width: 1024px) {
-            .nav-menu {
-                gap: 1.5rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1.2rem 5%;
-            }
-            .nav-menu {
-                width: 100%;
-                justify-content: center;
-                gap: 1rem;
-            }
-            .nav-menu a {
-                font-size: 1rem;
-                padding: 0.4rem 0.5rem;
-            }
-            .report-form {
-                margin: 2rem auto;
-                padding: 2.5rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .input-group {
-                flex-direction: column;
-            }
-            .radio-group {
-                gap: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="report-page">
-    <!-- ШАПКА -->
     <nav class="navbar">
         <div class="logo">Hospital Academy</div>
         <ul class="nav-menu">
@@ -372,12 +22,10 @@
         </ul>
     </nav>
 
-    <!-- ФОРМА ОТЧЁТА -->
     <main>
         <div class="report-form">
             <h2>📋 Отчёт об экзаменах</h2>
             <form id="examReportForm">
-                <!-- Кто принимал -->
                 <div class="form-group">
                     <label>👨‍⚕️ Кто принимал экзамен?</label>
                     <div class="input-group">
@@ -386,7 +34,6 @@
                     </div>
                 </div>
 
-                <!-- У кого принимали -->
                 <div class="form-group">
                     <label>🧑‍🎓 У кого принимали?</label>
                     <div class="input-group">
@@ -395,69 +42,44 @@
                     </div>
                 </div>
 
-                <!-- Список экзаменов (чекбоксы) -->
                 <div class="form-group">
                     <label>📚 Список экзаменов (можно выбрать несколько)</label>
                     <div class="checkbox-group" id="examsCheckboxGroup">
-                        <label>
-                            <input type="checkbox" name="exam" value="📕 | Клятва Врача"> 📕 | Клятва Врача
-                        </label>
-                        <label>
-                            <input type="checkbox" name="exam" value="📔 | Устав"> 📔 | Устав
-                        </label>
-                        <label>
-                            <input type="checkbox" name="exam" value="💊 | Медикаменты"> 💊 | Медикаменты
-                        </label>
-                        <label>
-                            <input type="checkbox" name="exam" value="📗┃Тен-коды"> 📗┃Тен-коды
-                        </label>
-                        <label>
-                            <input type="checkbox" name="exam" value="🚑 | Транспорт больницы"> 🚑 | Транспорт больницы
-                        </label>
-                        <label>
-                            <input type="checkbox" name="exam" value="📘┃Положение об использовании радиосвязи"> 📘┃Положение об использовании радиосвязи
-                        </label>
+                        <label><input type="checkbox" name="exam" value="📕 | Клятва Врача"> 📕 | Клятва Врача</label>
+                        <label><input type="checkbox" name="exam" value="📔 | Устав"> 📔 | Устав</label>
+                        <label><input type="checkbox" name="exam" value="💊 | Медикаменты"> 💊 | Медикаменты</label>
+                        <label><input type="checkbox" name="exam" value="📗┃Тен-коды"> 📗┃Тен-коды</label>
+                        <label><input type="checkbox" name="exam" value="🚑 | Транспорт больницы"> 🚑 | Транспорт больницы</label>
+                        <label><input type="checkbox" name="exam" value="📘┃Положение об использовании радиосвязи"> 📘┃Положение об использовании радиосвязи</label>
                     </div>
                 </div>
 
-                <!-- Результат -->
                 <div class="form-group">
                     <label>📌 Результат</label>
                     <div class="radio-group">
-                        <label>
-                            <input type="radio" name="result" value="Сдал ✅" checked> Сдал ✅
-                        </label>
-                        <label>
-                            <input type="radio" name="result" value="Не сдал ❌"> Не сдал ❌
-                        </label>
+                        <label><input type="radio" name="result" value="Сдал ✅" checked> Сдал ✅</label>
+                        <label><input type="radio" name="result" value="Не сдал ❌"> Не сдал ❌</label>
                     </div>
                 </div>
 
-                <!-- Кнопка отправки -->
                 <button type="submit" class="submit-btn" id="sendToDiscord">Отправить в Discord</button>
             </form>
         </div>
     </main>
 
-    <!-- ФУТЕР -->
     <footer class="credits">
         <p>Hospital Academy — внутренний инструмент для отчётов</p>
         <p>© 2025 | Все права защищены</p>
     </footer>
 
-    <!-- УВЕДОМЛЕНИЕ (TOAST) -->
     <div id="notification" class="notification">
         <span id="notificationMessage">Сообщение</span>
     </div>
 
-    <!-- СКРИПТ -->
     <script>
         (function() {
-            // ——— НАСТРОЙКИ ———
-            // ЗАМЕНИТЕ НА РЕАЛЬНЫЙ URL ВЕБХУКА DISCORD
-            const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw'; 
+            const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw';
 
-            // Элементы формы
             const form = document.getElementById('examReportForm');
             const examinerName = document.getElementById('examinerName');
             const examinerCid = document.getElementById('examinerCid');
@@ -466,7 +88,6 @@
             const resultRadios = document.getElementsByName('result');
             const examCheckboxes = document.querySelectorAll('#examsCheckboxGroup input[type="checkbox"]');
 
-            // Уведомление
             const notification = document.getElementById('notification');
             const notificationMessage = document.getElementById('notificationMessage');
 
@@ -483,7 +104,6 @@
                 }, 4000);
             }
 
-            // Получить выбранные экзамены
             function getSelectedExams() {
                 const selected = [];
                 examCheckboxes.forEach(cb => {
@@ -492,15 +112,13 @@
                 return selected;
             }
 
-            // Получить результат
             function getResult() {
                 for (let radio of resultRadios) {
                     if (radio.checked) return radio.value;
                 }
-                return 'Сдал ✅'; // по умолчанию
+                return 'Сдал ✅';
             }
 
-            // Валидация
             function validateForm() {
                 if (!examinerName.value.trim() || !examinerCid.value.trim()) {
                     showNotification('Заполните данные экзаменатора (имя и CID)', true);
@@ -518,89 +136,53 @@
                 return true;
             }
 
-            // Создание embed для Discord
             function createEmbed() {
                 const examiner = `${examinerName.value.trim()} | ${examinerCid.value.trim()}`;
                 const student = `${studentName.value.trim()} | ${studentCid.value.trim()}`;
                 const examsList = getSelectedExams().map(e => `• ${e}`).join('\n');
                 const result = getResult();
-
-                // Определяем цвет: зелёный для сдал, красный для не сдал
                 const color = result.includes('✅') ? 0x4ade80 : 0xff6b6b;
 
                 return {
                     title: '📋 Отчёт об экзамене',
                     color: color,
                     fields: [
-                        {
-                            name: '👨‍⚕️ Кто принимал',
-                            value: examiner,
-                            inline: true
-                        },
-                        {
-                            name: '🧑‍🎓 У кого принимали',
-                            value: student,
-                            inline: true
-                        },
-                        {
-                            name: '📚 Список экзаменов',
-                            value: examsList || '—',
-                            inline: false
-                        },
-                        {
-                            name: '📌 Результат',
-                            value: result,
-                            inline: false
-                        }
+                        { name: '👨‍⚕️ Кто принимал', value: examiner, inline: true },
+                        { name: '🧑‍🎓 У кого принимали', value: student, inline: true },
+                        { name: '📚 Список экзаменов', value: examsList || '—', inline: false },
+                        { name: '📌 Результат', value: result, inline: false }
                     ],
-                    footer: {
-                        text: 'Hospital Academy • Отчёт об экзаменах'
-                    },
+                    footer: { text: 'Hospital Academy • Отчёт об экзаменах' },
                     timestamp: new Date().toISOString()
                 };
             }
 
-            // Отправка в Discord
             async function sendToDiscord(embed) {
-                // Если вебхук не настроен — имитация (для демо)
-                if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes('https://discord.com/api/webhooks/1421632469441970246/u5uI3yfJA21TOvsJkpw_wi6tRWVICMDnDs4IGVrfb9Lzde-6mg6-PNBt5LUOX_hsTuOw')) {
-                    console.warn('Вебхук не настроен. Вместо отправки показываем уведомление.');
+                if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes('1421632469441970246')) {
                     showNotification('✅ Демо-режим: отчёт сформирован (вебхук не указан)', false);
                     return;
                 }
-
-                const payload = {
-                    embeds: [embed]
-                };
 
                 try {
                     const response = await fetch(DISCORD_WEBHOOK_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ embeds: [embed] })
                     });
 
-                    if (!response.ok) {
-                        throw new Error(`Ошибка HTTP: ${response.status}`);
-                    }
-
+                    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
                     showNotification('✅ Отчёт успешно отправлен в Discord!', false);
                 } catch (error) {
-                    console.error('Ошибка отправки:', error);
+                    console.error(error);
                     showNotification('❌ Не удалось отправить отчёт. Проверьте вебхук.', true);
                 }
             }
 
-            // Обработчик отправки формы
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-
                 if (!validateForm()) return;
-
-                const embed = createEmbed();
-                await sendToDiscord(embed);
+                await sendToDiscord(createEmbed());
             });
-
         })();
     </script>
 </body>
