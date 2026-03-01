@@ -4,45 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hith Staff HA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+        /* Дополнительные стили только для этой страницы */
+        .table-container .btn {
+            margin-bottom: 1.5rem;
         }
-        .login-form {
-            padding: 2rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: white;
+        #staffTable td {
             text-align: center;
         }
-        .table-container {
-            display: none;
-            padding: 1rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 0.5rem;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .btn {
-            padding: 0.5rem 1rem;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        #staffTable td:first-child {
+            font-weight: 500;
+            color: var(--primary);
         }
     </style>
 </head>
@@ -57,7 +33,7 @@
     </div>
 
     <!-- Основная таблица (появляется после авторизации) -->
-    <div class="table-container" id="tableSection">
+    <div class="table-container" id="tableSection" style="display: none;">
         <h2>Hith Staff HA — Статистика</h2>
         <button onclick="clearReports()" class="btn">Очистить отчёт</button>
         <table id="staffTable">
@@ -118,6 +94,22 @@
         </table>
     </div>
 
-    <script src="hith-staff-ha.js"></script>
+    <script>
+        // Простая авторизация (для демонстрации)
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === '1234') { // Замените на реальный пароль
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('tableSection').style.display = 'block';
+            } else {
+                alert('Неверный пароль');
+            }
+        }
+
+        function clearReports() {
+            // Функция очистки отчётов (заглушка)
+            alert('Отчёты очищены (демо-режим)');
+        }
+    </script>
 </body>
 </html>
