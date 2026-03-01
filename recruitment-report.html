@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отчёт о наборе — Hospital Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="report-page">
@@ -11,67 +14,68 @@
         <div class="logo">Hospital Academy</div>
         <ul class="nav-menu">
             <li><a href="index.html">Главная</a></li>
+            <li><a href="hith-staff-ha.html">High Staff HA</a></li>
             <li><a href="recruitment-report.html" class="active">Отчёт о наборе</a></li>
-            <li><a href="exam-report.html">Отчёт об экзамене</a></li>
-            <li><a href="weekly-report.html">Еженедельный отчёт HA</a></li>
-            <li><a href="about.html">О нас</a></li>
+            <li><a href="exam-report.html">Отчёт об экзаменах</a></li>
+            <li><a href="weekly-report.html">Еженедельный отчёт</a></li>
+            <li><a href="about.html">О проекте</a></li>
         </ul>
     </nav>
 
-    <main class="report-form">
-        <h2>Отчёт о наборе</h2>
-        <form id="recruitmentForm">
-            <div class="form-group">
-                <label for="announcementType">Тип объявления</label>
-                <select id="announcementType" required>
-                    <option value="">Выберите тип</option>
-                    <option value="hall">Набор в холле</option>
-                    <option value="electronic">Электронные заявки</option>
-                </select>
-            </div>
-
-            <!-- Главный по собеседованию — текстовое поле -->
-            <div class="form-group">
-                <label for="interviewLeader">Главный по собеседованию (Имя Фамилия | CID)</label>
-                <input
-                    type="text"
-                    id="interviewLeader"
-                    placeholder="Например: Maksim Hartford | CQ18"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Время проведения набора</label>
-                <div class="input-group">
-                    <input type="text" id="recruitmentDate" placeholder="ДД.ММ.ГГГГ" required>
-                    <input type="text" id="recruitmentTime" placeholder="ЧЧ:ММ" required>
+    <main>
+        <div class="report-form">
+            <h2>📋 Отчёт о наборе</h2>
+            <form id="recruitmentForm">
+                <div class="form-group">
+                    <label for="announcementType">Тип объявления</label>
+                    <select id="announcementType" required>
+                        <option value="">Выберите тип</option>
+                        <option value="hall">Набор в холле</option>
+                        <option value="electronic">Электронные заявки</option>
+                    </select>
                 </div>
-                <small class="hint">Пример: 01.02.2026 и 14:30</small>
-            </div>
 
-            <div class="form-group">
-                <label for="haStaff">Сотрудники HA</label>
-                <textarea id="haStaff" placeholder="Перечислите через запятую"></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="interviewLeader">Главный по собеседованию (Имя Фамилия | CID)</label>
+                    <input type="text" id="interviewLeader" placeholder="Например: Maksim Hartford | CQ18" required>
+                </div>
 
-            <div class="form-group">
-                <label>Принятые кандидаты</label>
-                <div id="acceptedList">
-                    <div class="accepted-item">
-                        <input type="text" placeholder="Имя Фамилия" required>
-                        <input type="text" placeholder="CID" required>
-                        <button type="button" class="removeBtn">×</button>
+                <div class="form-group">
+                    <label>Время проведения набора</label>
+                    <div class="input-group">
+                        <input type="text" id="recruitmentDate" placeholder="ДД.ММ.ГГГГ" required>
+                        <input type="text" id="recruitmentTime" placeholder="ЧЧ:ММ" required>
                     </div>
+                    <small class="hint">Пример: 01.02.2026 и 14:30</small>
                 </div>
-                <button type="button" id="addAcceptedBtn" class="btn small">+ Добавить кандидата</button>
-            </div>
 
-            <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
-        </form>
+                <div class="form-group">
+                    <label for="haStaff">Сотрудники HA</label>
+                    <textarea id="haStaff" placeholder="Перечислите через запятую"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Принятые кандидаты</label>
+                    <div id="acceptedList">
+                        <div class="accepted-item" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <input type="text" placeholder="Имя Фамилия" style="flex: 1;" required>
+                            <input type="text" placeholder="CID" style="flex: 0 0 100px;" required>
+                            <button type="button" class="removeBtn">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addAcceptedBtn" class="btn small">+ Добавить кандидата</button>
+                </div>
+
+                <button type="submit" class="submit-btn">Отправить отчёт в Discord</button>
+            </form>
+        </div>
     </main>
+
+    <footer class="credits">
+        <p>Hospital Academy — внутренний инструмент для отчётов</p>
+        <p>© 2025 | Все права защищены</p>
+    </footer>
 
     <script src="recruitment-script.js"></script>
 </body>
 </html>
-
